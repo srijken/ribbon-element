@@ -1,0 +1,29 @@
+{
+  "name": "ribbon-element",
+  "description": "Adds a ribbon to another element",
+  "main": "ribbon-element.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srijken/ribbon-element.git"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/srijken/ribbon-element",
+  "_release": "93fbb10256",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "93fbb10256c0e8c3f8060750d9506cd6422ca6b8"
+  },
+  "_source": "https://github.com/srijken/ribbon-element.git",
+  "_target": "master",
+  "_originalSource": "srijken/ribbon-element",
+  "_direct": true
+}
