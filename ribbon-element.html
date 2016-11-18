@@ -1,0 +1,128 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+Usage:
+
+```
+<ribbon-element label="[[ribbonText]]" size="100">
+    <div>
+        
+    </div>
+</ribbon-element>
+```
+
+The following custom properties and mixins are also available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--ribbon-element-fold-size` | size of the fold | `3px`
+`--ribbon-font` | font | `15px Sans-Serif`
+`--ribbon-element-lineheight` | The line-height applied to the ribbon text | `15px`
+`--ribbon-element-background-color` | First color of gradient | `#BFDC7A`
+`--ribbon-element-background-color2` | Second color of gradient | `#8EBF45`
+`--ribbon-element-text-color` | text color | `#6a6340`
+
+@demo demo/index.html
+-->
+
+
+<dom-module id="ribbon-element">
+  <template>
+    <style>
+        :host{
+          display: block;  
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 90;
+            display: inline-block;
+        }
+
+      .ribbon-wrapper {
+        width: var(--ribbon-size);
+        height: var(--ribbon-size);
+        overflow: hidden;
+        position: absolute;
+        top: calc(-1 * var(--ribbon-element-fold-size, 3px));
+        right: calc(-1 * var(--ribbon-element-fold-size, 3px));
+      }
+
+      .ribbon {
+        font:  var(--ribbon-font, 15px Sans-Serif);
+        text-align: center;
+        transform-origin: 0 100%;
+        transform:  rotate(45deg);
+        position: relative;
+        padding: var(--ribbon-element-padding, 7px) 0;
+        line-height: var(--ribbon-element-lineheight, 15px);
+        top: calc(var(--ribbon-element-padding, 7px) * -2 - var(--ribbon-element-lineheight, 15px));
+
+        width: var(--ribbon-diagonal-size);
+        background-color: var(--ribbon-element-background-color, #BFDC7A);
+        background-image: -webkit-gradient(linear, left top, left bottom, from(var(--ribbon-element-background-color, #BFDC7A)), to(var(--ribbon-element-background-color2, #8EBF45)));
+        background-image: -webkit-linear-gradient(top, var(--ribbon-element-background-color, #BFDC7A), var(--ribbon-element-background-color2, #8EBF45));
+        background-image:    -moz-linear-gradient(top, var(--ribbon-element-background-color, #BFDC7A), var(--ribbon-element-background-color2, #8EBF45));
+        background-image:     -ms-linear-gradient(top, var(--ribbon-element-background-color, #BFDC7A), var(--ribbon-element-background-color2, #8EBF45));
+        background-image:      -o-linear-gradient(top, var(--ribbon-element-background-color, #BFDC7A), var(--ribbon-element-background-color2, #8EBF45));
+        color: var(--ribbon-element-text-color, #6a6340);
+        box-shadow:         0px 0px var(--ribbon-element-fold-size, 3px) rgba(0,0,0,0.3);
+      }
+
+      .ribbon:before, .ribbon:after {
+        content: "";
+        border-top:   var(--ribbon-element-fold-size, 3px) solid #6e8900;
+        border-left:  var(--ribbon-element-fold-size, 3px) solid transparent;
+        border-right: var(--ribbon-element-fold-size, 3px) solid transparent;
+        position:absolute;
+        bottom: calc(-1 * var(--ribbon-element-fold-size, 3px));
+      }
+
+      .ribbon:before {
+        left: 0;
+      }
+      .ribbon:after {
+        right: 0;
+      }​
+    </style>
+    <div class="wrapper">
+      <content ></content>
+      <div class="ribbon-wrapper" hidden$="[[!visible]]">
+        <div class="ribbon">[[label]]</div>
+      </div>
+    </div>
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'ribbon-element',
+
+        properties: {
+          /** The label that's displayed on the ribbon
+          */
+            label: {
+                type: String
+            },
+            /** The size
+            */
+            size: {
+                type: Number,
+                value: 85
+            },
+            /**
+            */
+            visible: {
+              type:Boolean
+            }
+        },
+        attached: function(){
+            this.customStyle['--ribbon-size'] = this.size + 'px';
+            this.customStyle['--ribbon-diagonal-size'] = Math.sqrt(2 * Math.pow(this.size, 2)) + 'px';
+            this.updateStyles();
+        }
+      });
+    })();
+  </script>
+</dom-module>
